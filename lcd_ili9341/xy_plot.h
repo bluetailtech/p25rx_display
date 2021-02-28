@@ -1,0 +1,157 @@
+
+#ifndef _ILI9341H_XYPLOTDATA
+#define _ILI9341H_XYPLOTDATA
+
+//MIT License
+//
+//Copyright (c) 2020 tvelliott
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
+int xy_plot[] = {
+  202, 67,
+  202, 67,
+  202, 67,
+  202, 67,
+  202, 67,
+  202, 69,
+  193, 69,
+  191, 74,
+  192, 74,
+  193, 74,
+  202, 74,
+  202, 74,
+  203, 74,
+  208, 74,
+  203, 69,
+  202, 69,
+  202, 69,
+  202, 69,
+  202, 69,
+  194, 69,
+  193, 74,
+  193, 74,
+  196, 65,
+  202, 62,
+  208, 69,
+  208, 69,
+  208, 67,
+  208, 67,
+  202, 67,
+  202, 66,
+  194, 67,
+  194, 67,
+  196, 69,
+  202, 69,
+  202, 69,
+  208, 69,
+  208, 74,
+  202, 67,
+  202, 67,
+  196, 67,
+  196, 67,
+  202, 69,
+  186, 177,
+  186, 178,
+  186, 180,
+  189, 174,
+  193, 180,
+  202, 179,
+  202, 174,
+  193, 171,
+  191, 171,
+  187, 173,
+  186, 174,
+  189, 177,
+  196, 179,
+  202, 177,
+  202, 177,
+  202, 174,
+  193, 173,
+  191, 173,
+  189, 174,
+  193, 177,
+  202, 179,
+  202, 165,
+  203, 177,
+  300, 171,
+  303, 171,
+  305, 171,
+  310, 171,
+  310, 169,
+  305, 166,
+  295, 166,
+  296, 171,
+  295, 169,
+  296, 171,
+  303, 173,
+  305, 171,
+  305, 171,
+  310, 169,
+  303, 166,
+  300, 166,
+  299, 171,
+  299, 169,
+  303, 171,
+  305, 171,
+  310, 170,
+  310, 166,
+  305, 166,
+  284, 171,
+  299, 166,
+  299, 166,
+  303, 166,
+  305, 169,
+  305, 179,
+  305, 170,
+  305, 69,
+  305, 69,
+  305, 69,
+  305, 69,
+  305, 67,
+  303, 69,
+  300, 67,
+  299, 69,
+  299, 67,
+  300, 69,
+  300, 69,
+  305, 69,
+  305, 69,
+  305, 69,
+  310, 69,
+  303, 67,
+  300, 67,
+  296, 69,
+  293, 69,
+  293, 74,
+  295, 74,
+  300, 74,
+  305, 74,
+  305, 69,
+  305, 69,
+  303, 66,
+  299, 67,
+  296, 69,
+  296, 69,
+  300, 74,
+  303, 74
+};
+int xy_plot_len = 126;
+
+#endif
