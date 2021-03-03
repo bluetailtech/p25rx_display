@@ -11,3 +11,4 @@ Build Instructions (tested on a Debian system)
 6) Flip SW2 to the ON position before supplying power to the pcb. This will put the MCU into DFU programming mode.
 7) Download the dfu-util software: http://dfu-util.sourceforge.net/
 8) Program the device with dfu-util:   'dfu-util --device 0483:df11 -a 0 -s 0x08000000 -D build/p25rx_display_DFU.bin'
+9) Return SW2 to the OFF position and cycle power.
