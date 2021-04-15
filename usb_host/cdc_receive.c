@@ -86,18 +86,18 @@ void usb_tick(void) {
 void usb_send_command(char *command_str) {
   uint32_t prim;
 
-  if(init_cnt>0 && init_cnt<7) return;
+//  if(init_cnt>0 && init_cnt<7) return;
 
-  prim = __get_PRIMASK();
-  __disable_irq();
+  //prim = __get_PRIMASK();
+  //__disable_irq();
 
   strcpy( CDC_TX_Buffer, command_str );
   int tx_len = strlen( CDC_TX_Buffer );
   USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
 
-  if( !prim ) {
-    __enable_irq();
-  }
+  //if( !prim ) {
+   // __enable_irq();
+  //}
 }
 
 ////////////////////////////////////////////////////////////////////////
