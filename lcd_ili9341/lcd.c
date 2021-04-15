@@ -1156,6 +1156,8 @@ void lcd_usb_connected( void )
   __disable_irq();
   update_usb_connect = 1;
   did_usb_start=1;
+
+
   if( !prim ) {
     __enable_irq();
   }

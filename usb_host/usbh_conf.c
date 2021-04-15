@@ -269,62 +269,15 @@ USBH_URBStateTypeDef USBH_LL_GetURBState( USBH_HandleTypeDef *phost,
 USBH_StatusTypeDef USBH_LL_DriverVBUS( USBH_HandleTypeDef *phost, uint8_t state )
 {
 
-  GPIO_InitTypeDef GPIO_InitStruct;
-
-  /* Configure USB FS GPIOs */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-
-
-  #if 0 
-  if( state == 0 ) {
-    /* Configure Low Charge pump */
-    //BSP_IO_WritePin(OTG_FS1_POWER_SWITCH_PIN, BSP_IO_PIN_RESET);
-    HAL_GPIO_WritePin( USB_EN_PORT, USB_EN, GPIO_PIN_SET );
-    printf( "\r\nUSB VBUS on" );
-  } else {
-    /* Drive High Charge pump */
-    //BSP_IO_WritePin(OTG_FS1_POWER_SWITCH_PIN, BSP_IO_PIN_SET);
-    HAL_PWREx_DisableUSBVoltageDetector();
-    HAL_Delay( 100 ); //100
-    HAL_PWREx_EnableUSBVoltageDetector();
-    HAL_GPIO_WritePin( USB_EN_PORT, USB_EN, GPIO_PIN_RESET );
-    printf( "\r\nUSB VBUS off" );
-    HAL_Delay( 1000 );  //1000
-    HAL_GPIO_WritePin( USB_EN_PORT, USB_EN, GPIO_PIN_SET );
-    printf( "\r\nUSB VBUS on" );
-  }
-  #else
-  #endif
-
   if( state==0 ) {
-    /* Configure DM DP Pins */
-    GPIO_InitStruct.Pin = ( GPIO_PIN_11 | GPIO_PIN_12 );
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    HAL_GPIO_Init( GPIOA, &GPIO_InitStruct );
-
-    HAL_GPIO_WritePin( GPIOA, GPIO_PIN_11, GPIO_PIN_RESET );
-    HAL_GPIO_WritePin( GPIOA, GPIO_PIN_12, GPIO_PIN_RESET );
-
     HAL_GPIO_WritePin( USB_EN_PORT, USB_EN, GPIO_PIN_RESET );
   }
   else {
-    /* Configure DM DP Pins */
-    GPIO_InitStruct.Pin = ( GPIO_PIN_11 | GPIO_PIN_12 );
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF10_OTG1_FS;
-    HAL_GPIO_Init( GPIOA, &GPIO_InitStruct );
-
     HAL_GPIO_WritePin( USB_EN_PORT, USB_EN, GPIO_PIN_SET );
   }
 
 
-
-  HAL_Delay( 500 ); //500
+  //HAL_Delay( 500 ); //500
 
 
 

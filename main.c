@@ -283,6 +283,7 @@ void lcd_tick()
 
   if( current_time - ms_tick_time > 0 ) {
 
+    #if 0
   uint32_t prim = __get_PRIMASK();
   __disable_irq();
     usb_restart_count++;
@@ -293,6 +294,7 @@ void lcd_tick()
   if( !prim ) {
     __enable_irq();
   }
+    #endif
 
     ms_tick_time = current_time;
     lcd_tick_ms();
