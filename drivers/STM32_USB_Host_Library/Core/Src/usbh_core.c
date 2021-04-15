@@ -67,6 +67,7 @@ osThreadAttr_t USBH_Thread_Atrr;
 
 
 static int init;
+extern volatile int do_usb_start;
 
 /**
   * @}
@@ -637,7 +638,8 @@ USBH_StatusTypeDef  USBH_Process(USBH_HandleTypeDef *phost)
           phost->gState  = HOST_CLASS_REQUEST;
           USBH_UsrLog ("\r\n%s class started.", phost->pActiveClass->Name);
 
-          usb_start_rx();
+          do_usb_start=1;
+          //usb_start_rx();
 
           /* Inform user that a class has been activated */
           phost->pUser(phost, HOST_USER_CLASS_SELECTED);

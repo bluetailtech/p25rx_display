@@ -55,6 +55,7 @@ static volatile float angle1;
 static volatile float angle2;
 static volatile int audio_dir;
 volatile int usb_restart_count;
+volatile int do_usb_start;
 
 
 USBH_HandleTypeDef hUSBHost;
@@ -225,6 +226,16 @@ int main( void )
 
     lcd_tick();
 
+    if(do_usb_start) {
+      uint32_t prim = __get_PRIMASK();
+      __disable_irq();
+        do_usb_start=0;
+        usb_start_rx();
+      if( !prim ) {
+        __enable_irq();
+      }
+    }
+
   }
 
 }
@@ -287,7 +298,7 @@ void lcd_tick()
   uint32_t prim = __get_PRIMASK();
   __disable_irq();
     usb_restart_count++;
-    if(usb_restart_count>3500) {
+    if(usb_restart_count>8000) {
       usb_restart_count=0;
       usb_restart();
     }
@@ -810,6 +821,13 @@ void set_volume(int vol) {
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 void usb_restart() {
+
+  //HAL_GPIO_WritePin( USB_EN_PORT, USB_EN, GPIO_PIN_RESET );
+  //HAL_Delay( 500 );
+  //HAL_GPIO_WritePin( USB_EN_PORT, USB_EN, GPIO_PIN_SET );
+  //HAL_Delay( 100 );
+
+
   USBH_CDC_Stop(&hUSBHost);
   if(!did_usb_start) {
     USBH_DeInit( &hUSBHost );
