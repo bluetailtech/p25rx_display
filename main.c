@@ -335,7 +335,7 @@ void lcd_tick()
 
   }
 
-  if( ++start_rx_cnt % 3000 ==0) {
+  if( ++start_rx_cnt % 5000 ==0) {
     usb_tick();
   }
 

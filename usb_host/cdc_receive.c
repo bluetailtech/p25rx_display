@@ -59,7 +59,7 @@ volatile int did_usb_start;
 ////////////////////////////////////////////////////////////////////////
 void usb_start_rx()
 {
-  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 32 );
+  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 512 );
   did_tx=0;
 }
 
@@ -120,7 +120,7 @@ void usb_start_tx()
 void USBH_CDC_ReceiveCallback( USBH_HandleTypeDef *phost )
 {
   usb_rx();
-  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 256 );
+  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 512 );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -132,32 +132,38 @@ void USBH_CDC_TransmitCallback( USBH_HandleTypeDef *phost )
     strcpy( CDC_TX_Buffer, "en_display 1\r\n\0" );
     int tx_len = strlen( CDC_TX_Buffer );
     USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+    delay_ms_ni(10);
   }
 #if 1
   else if( init_cnt == 2 ) {
     strcpy( CDC_TX_Buffer, "led_mode 0\r\n\0" );
     int tx_len = strlen( CDC_TX_Buffer );
     USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+    delay_ms_ni(10);
   }
   else if( init_cnt == 3 ) {
     strcpy( CDC_TX_Buffer, "en_display 1\r\n\0" );
     int tx_len = strlen( CDC_TX_Buffer );
     USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+    delay_ms_ni(10);
   }
   else if( init_cnt == 4 ) {
     strcpy( CDC_TX_Buffer, "en_display 1\r\n\0" );
     int tx_len = strlen( CDC_TX_Buffer );
     USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+    delay_ms_ni(10);
   }
   else if( init_cnt == 5 ) {
     strcpy( CDC_TX_Buffer, "en_voice_send 1\r\n\0" );
     int tx_len = strlen( CDC_TX_Buffer );
     USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+    delay_ms_ni(10);
   }
   else if( init_cnt == 6 ) {
     strcpy( CDC_TX_Buffer, "en_voice_send 1\r\n\0" );
     int tx_len = strlen( CDC_TX_Buffer );
     USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+    delay_ms_ni(10);
   }
 #endif
 }
