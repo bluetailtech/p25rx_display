@@ -54,7 +54,7 @@ volatile uint16_t rand16;
 static volatile float angle1;
 static volatile float angle2;
 static volatile int audio_dir;
-int usb_restart_count;
+volatile int usb_restart_count;
 
 
 USBH_HandleTypeDef hUSBHost;
@@ -283,13 +283,16 @@ void lcd_tick()
 
   if( current_time - ms_tick_time > 0 ) {
 
-    #if 1
+  uint32_t prim = __get_PRIMASK();
+  __disable_irq();
     usb_restart_count++;
-    if(usb_restart_count>8000) {
+    if(usb_restart_count>3500) {
       usb_restart_count=0;
       usb_restart();
     }
-    #endif
+  if( !prim ) {
+    __enable_irq();
+  }
 
     ms_tick_time = current_time;
     lcd_tick_ms();
@@ -806,8 +809,6 @@ void set_volume(int vol) {
 ///////////////////////////////////////////////////////////////////////////
 void usb_restart() {
   USBH_CDC_Stop(&hUSBHost);
-
-  #if 1
   if(!did_usb_start) {
     USBH_DeInit( &hUSBHost );
     HAL_PWREx_DisableUSBVoltageDetector();
@@ -820,8 +821,5 @@ void usb_restart() {
     USBH_Init( &hUSBHost, USBH_UserProcess, 0 );
     USBH_RegisterClass( &hUSBHost, USBH_CDC_CLASS );
   }
-  #else
-    HAL_Delay( 100 );
-  #endif
   USBH_Start( &hUSBHost );
 }

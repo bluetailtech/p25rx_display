@@ -99,7 +99,7 @@ void usb_start_tx()
 void USBH_CDC_ReceiveCallback( USBH_HandleTypeDef *phost )
 {
   usb_rx();
-  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 32 );
+  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 256 );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -171,7 +171,12 @@ void process_usb_rx( uint8_t c )
     else rx_state = 0;
     break;
   case  3 :
-    usb_restart_count=0;
+        prim = __get_PRIMASK();
+        __disable_irq();
+        usb_restart_count=0;
+        if( !prim ) {
+          __enable_irq();
+        }
 
     if( c == 0x71 ) { //voice audio
       rx_state = 4;
@@ -259,10 +264,6 @@ void process_usb_rx( uint8_t c )
         __enable_irq();
       }
     }
-    if(iq_cnt>320) {
-      iq_cnt=0;
-      rx_state=0;
-    }
     break;
 
   case  6 :   //SYSINFO
@@ -276,10 +277,6 @@ void process_usb_rx( uint8_t c )
       if( !prim ) {
         __enable_irq();
       }
-    }
-    if(sysinfo_cnt>140) {
-      sysinfo_cnt=0;
-      rx_state=0;
     }
     break;
 
