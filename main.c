@@ -56,6 +56,7 @@ static volatile float angle2;
 static volatile int audio_dir;
 volatile int usb_restart_count;
 volatile int do_usb_start;
+extern uint8_t volatile CDC_RX_Buffer[RX_BUFF_SIZE];
 
 
 USBH_HandleTypeDef hUSBHost;
@@ -219,7 +220,6 @@ int main( void )
 
   printf( "\r\nStarting Main Loop" );
 
-
   while( 1 ) {
 
     USBH_Process( &hUSBHost );
@@ -305,6 +305,20 @@ void lcd_tick()
   if( !prim ) {
     __enable_irq();
   }
+    #else
+      usb_restart_count++;
+      if(usb_restart_count>5000 && lcd_is_usb_connected && do_usb_start==0) {
+        usb_restart_count=0;
+        //USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 256 );
+
+        uint32_t prim = __get_PRIMASK();
+        __disable_irq();
+          do_usb_start=1;
+        if( !prim ) {
+          __enable_irq();
+        }
+
+      }
     #endif
 
     ms_tick_time = current_time;
@@ -321,7 +335,7 @@ void lcd_tick()
 
   }
 
-  if( ++start_rx_cnt % 6000 ==0) {
+  if( ++start_rx_cnt % 3000 ==0) {
     usb_tick();
   }
 

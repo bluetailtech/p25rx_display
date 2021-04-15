@@ -28,8 +28,6 @@
 #include <stdarg.h>
 #include "main.h"
 
-#define RX_BUFF_SIZE  4096
-
 void process_usb_rx( uint8_t c );
 extern void update_const( uint8_t *iq_const );
 extern void process_sysinfo( uint8_t *sysinfo );
@@ -68,7 +66,16 @@ void usb_start_rx()
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 void usb_tick(void) {
+  uint32_t prim;
   if(did_tx==0) {
+
+    prim = __get_PRIMASK();
+    __disable_irq();
+      init_cnt = 0;
+    if( !prim ) {
+      __enable_irq();
+    }
+
     usb_start_tx();
     did_tx=1;
   }
@@ -77,20 +84,34 @@ void usb_tick(void) {
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 void usb_send_command(char *command_str) {
+  uint32_t prim;
+
+  if(init_cnt>0 && init_cnt<7) return;
+
+  prim = __get_PRIMASK();
+  __disable_irq();
+
   strcpy( CDC_TX_Buffer, command_str );
   int tx_len = strlen( CDC_TX_Buffer );
   USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+
+  if( !prim ) {
+    __enable_irq();
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 void usb_start_tx()
 {
+
+  if(init_cnt>0 && init_cnt<7) return;
+
 #if 1
   strcpy( CDC_TX_Buffer, "en_voice_send 1\r\n\0" );
   int tx_len = strlen( CDC_TX_Buffer );
   USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
-  init_cnt = 0;
+
 #endif
 }
 
@@ -115,6 +136,26 @@ void USBH_CDC_TransmitCallback( USBH_HandleTypeDef *phost )
 #if 1
   else if( init_cnt == 2 ) {
     strcpy( CDC_TX_Buffer, "led_mode 0\r\n\0" );
+    int tx_len = strlen( CDC_TX_Buffer );
+    USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+  }
+  else if( init_cnt == 3 ) {
+    strcpy( CDC_TX_Buffer, "en_display 1\r\n\0" );
+    int tx_len = strlen( CDC_TX_Buffer );
+    USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+  }
+  else if( init_cnt == 4 ) {
+    strcpy( CDC_TX_Buffer, "en_display 1\r\n\0" );
+    int tx_len = strlen( CDC_TX_Buffer );
+    USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+  }
+  else if( init_cnt == 5 ) {
+    strcpy( CDC_TX_Buffer, "en_voice_send 1\r\n\0" );
+    int tx_len = strlen( CDC_TX_Buffer );
+    USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
+  }
+  else if( init_cnt == 6 ) {
+    strcpy( CDC_TX_Buffer, "en_voice_send 1\r\n\0" );
     int tx_len = strlen( CDC_TX_Buffer );
     USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
   }

@@ -27,6 +27,8 @@
 
 #include <stdint.h>
 
+#define RX_BUFF_SIZE  4096
+
 #define STLK_RX_Pin GPIO_PIN_8
 #define STLK_RX_GPIO_Port GPIOD
 #define STLK_TX_Pin GPIO_PIN_9
