@@ -59,7 +59,7 @@ volatile int did_usb_start;
 ////////////////////////////////////////////////////////////////////////
 void usb_start_rx()
 {
-  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 512 );
+  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 256 );
   did_tx=0;
 }
 
@@ -95,6 +95,8 @@ void usb_send_command(char *command_str) {
   int tx_len = strlen( CDC_TX_Buffer );
   USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
 
+  delay_ms_ni(10);
+
   //if( !prim ) {
    // __enable_irq();
   //}
@@ -120,7 +122,7 @@ void usb_start_tx()
 void USBH_CDC_ReceiveCallback( USBH_HandleTypeDef *phost )
 {
   usb_rx();
-  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 512 );
+  USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 256 );
 }
 
 ////////////////////////////////////////////////////////////////////////
