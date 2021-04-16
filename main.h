@@ -80,7 +80,7 @@ float update_gain_s16( int16_t *audio, int len, float target, float rate );
 float update_gain_f32( float *audio, int len, float target, float rate );
 extern volatile int usb_restart_count;
 extern volatile int did_usb_start;
-extern int start_rx_cnt;
+extern volatile int start_rx_cnt;
 
 #define Error_Handler() _Error_Handler(__FILE__, __LINE__)
 #ifdef __cplusplus
