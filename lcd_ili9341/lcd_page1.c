@@ -308,12 +308,17 @@ void update_sysinfo() {
     lcd_draw_str_scaled( str, SCALE_2X, 105, 155, ILI9341_YELLOW, ILI9341_BLACK, 1 );       //8x16, 3x
   }
 
+
+  int did_sys_id=0;
   memcpy( ( uint8_t * ) &i1, ( uint8_t * ) &sysinfo[72], 4 );
   if( i1 != sys_id || do_refresh ) {
     sys_id = i1;
+    did_sys_id=1;
   }
   memcpy( ( uint8_t * ) &i1, ( uint8_t * ) &sysinfo[68], 4 );
-  if( i1 != wacn || do_refresh ) {
+
+
+  if( i1 != wacn || did_sys_id || do_refresh ) {
     wacn = i1;
 
 
