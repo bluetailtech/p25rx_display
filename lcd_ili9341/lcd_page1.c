@@ -68,6 +68,7 @@ static uint8_t str[64];
 static char sys_name[12];
 
 static volatile int do_update_sysinfo;
+static int init_txt;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,6 +82,7 @@ void lcd_page1_init()
   new_button_c1( "<", 17, 60, SCALE_3X, LCD_PAGE1, BUT_GLOBAL_ON, &handle_button_evt );
   new_button_c1( ">", 290, 60, SCALE_3X, LCD_PAGE1, BUT_GLOBAL_ON, &handle_button_evt );
   new_button_c1( "MUTE", 235, 15, SCALE_1X, LCD_PAGE1, BUT_GLOBAL_ON, &handle_button_evt );
+
 
 };
 
@@ -112,6 +114,12 @@ void draw_lcd_page1()
     lcd_drawline( ILI9341_GREEN, 45, 60, 45, 141 );
   }
 
+  if(!init_txt) {
+    //lcd_fill_rect( 8, 220 - 32, 16 * 21, 32, ILI9341_BLACK );
+    //lcd_draw_str_scaled( "Connecting...", SCALE_2X, 8, 220, ILI9341_WHITE, ILI9341_BLACK, 1 );       //8x16, 4x
+    lcd_draw_str_scaled( "Connect to P25RX..", SCALE_1X, 4, 190, ILI9341_ORANGE, ILI9341_BLACK, 1 );      //8x16, 2x
+    init_txt=1;
+  }
 
 #if 0
   //draw xy plot
