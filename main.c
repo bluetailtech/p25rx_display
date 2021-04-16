@@ -132,7 +132,7 @@ static volatile float gaindelta;
 static volatile float maxbuf;
 
 static int silent_cnt;
-static int start_rx_cnt;
+int start_rx_cnt;
 static volatile float volume = 0.25f;
 
 
@@ -307,7 +307,7 @@ void lcd_tick()
   }
     #else
       usb_restart_count++;
-      if(usb_restart_count>5000 && lcd_is_usb_connected && do_usb_start==0) {
+      if(usb_restart_count>6000 && lcd_is_usb_connected && do_usb_start==0) {
         usb_restart_count=0;
         //USBH_CDC_Receive( &hUSBHost, CDC_RX_Buffer, 256 );
 
@@ -334,7 +334,7 @@ void lcd_tick()
     }
 
 
-    if( ++start_rx_cnt % 5000 ==0) {
+    if( ++start_rx_cnt % 4000 ==0) {
       usb_tick();
     }
 

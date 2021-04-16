@@ -67,7 +67,7 @@ void usb_start_rx()
 ////////////////////////////////////////////////////////////////////////
 void usb_tick(void) {
   uint32_t prim;
-  if(did_tx==0) {
+  if(did_tx==0 && lcd_is_usb_connected ) {
 
     prim = __get_PRIMASK();
     __disable_irq();
@@ -77,7 +77,6 @@ void usb_tick(void) {
     }
 
     usb_start_tx();
-    did_tx=1;
   }
 }
 
@@ -166,6 +165,7 @@ void USBH_CDC_TransmitCallback( USBH_HandleTypeDef *phost )
     int tx_len = strlen( CDC_TX_Buffer );
     USBH_CDC_Transmit( &hUSBHost, CDC_TX_Buffer, tx_len );
     delay_ms_ni(10);
+    did_tx=1;
   }
 #endif
 }

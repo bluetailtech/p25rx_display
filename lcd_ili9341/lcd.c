@@ -26,6 +26,7 @@
 #include "lcd.h"
 #include "fonts.h"
 #include <stdlib.h>
+#include "main.h" 
 
 const uint8_t display_init[] = {
   0xEF, 3, 0x03, 0x80, 0x02,
@@ -1156,6 +1157,7 @@ void lcd_usb_connected( void )
   __disable_irq();
   update_usb_connect = 1;
   did_usb_start=1;
+  start_rx_cnt=0;
 
 
   if( !prim ) {
