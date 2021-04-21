@@ -10694,7 +10694,7 @@ Source: http://www.irf.com/product-info/datasheets/data/irfr5305pbf.pdf</descrip
 <part name="SUPPLY3" library="supply2" deviceset="GND" device=""/>
 <part name="R6" library="misc9" deviceset="R-US_" device="R0402" value="4.99k"/>
 <part name="J3" library="usb-dvi-hdmi-connectors" deviceset="1050170001" device=""/>
-<part name="D2" library="diode" deviceset="DIODE-" device="SMB"/>
+<part name="D2" library="diode" deviceset="DIODE-" device="SMB" value="zero_ohm"/>
 <part name="Q16" library="fets" deviceset="2N7002" device="" value="2N7002"/>
 <part name="SUPPLY372" library="supply2" deviceset="GND" device=""/>
 <part name="R9" library="misc9" deviceset="R-US_" device="R0603" value="470"/>
@@ -12133,8 +12133,9 @@ Source: http://www.irf.com/product-info/datasheets/data/irfr5305pbf.pdf</descrip
 <text x="76.2" y="12.7" size="1.9304" layer="91">Poly Fuse</text>
 <text x="139.7" y="76.2" size="1.9304" layer="91">USB Micro AB OTG Connector</text>
 <text x="147.32" y="71.12" size="1.9304" layer="91">Power + Data</text>
-<text x="101.6" y="-7.62" size="1.778" layer="91">Use this signal to determine if device
-should be in USB Host Or Device mode.</text>
+<text x="101.6" y="15.24" size="1.778" layer="91">USB cannot handle a voltage drop here</text>
+<text x="101.6" y="12.7" size="1.778" layer="91">USE Zero Ohm jumper</text>
+<text x="101.6" y="17.78" size="1.778" layer="91">NOTE:</text>
 </plain>
 <instances>
 <instance part="FRAME6" gate="G$1" x="292.1" y="-127"/>
@@ -12627,7 +12628,8 @@ PBC Adapter Micro SD ILI9341 White LED (with  touch)</text>
 <plain>
 <text x="20.32" y="83.82" size="1.778" layer="91">changes: rev2b-&gt;rev3</text>
 <frame x1="10.16" y1="-17.78" x2="190.5" y2="91.44" columns="8" rows="5" layer="91"/>
-<text x="22.86" y="73.66" size="1.778" layer="91">Speaker jack changed to mono-only (connect to right side)</text>
+<text x="20.32" y="81.28" size="1.778" layer="91">Speaker jack changed to mono-only (connect to right side)</text>
+<text x="20.32" y="71.12" size="1.778" layer="91">2021-04-21 - add notes regarding D2 being replaced with zero ohm jumper</text>
 </plain>
 <instances>
 </instances>
