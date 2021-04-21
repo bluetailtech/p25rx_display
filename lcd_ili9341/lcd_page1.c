@@ -107,7 +107,7 @@ void draw_lcd_page1()
   int i;
 
   //clear area under xy plot
-  if( xy_clr_mod++ % 3 == 0 ) {
+  if( xy_clr_mod++ % 6 == 0 ) {
     lcd_fill_rect( 3, 64, 85, 77, ILI9341_BLACK );
     //draw grid for xy plot
     lcd_drawline( ILI9341_GREEN, 3, 100, 85, 100 );
