@@ -179,7 +179,7 @@ int main( void )
   MX_USART6_UART_Init();
   lcd_init();
 
-  HAL_Delay( 100 );
+  HAL_Delay( 1000 );  //increase this from 100 to 1000 in order to get USB communications working on some devices
 
 #if 1
   //HAL_PWREx_EnableUSBReg();
